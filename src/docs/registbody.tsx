@@ -1,10 +1,11 @@
 import { ViewBody } from "../type/home.type";
 import { useRef, useState } from "react";
 import { PageType, RegistRequestBody, StoreDetailInfo, StoreInfo } from "../type/regist.type";
-import PassForm from "./registforms/passform";
+import PassForm from "./registforms/pass.form";
+import StoreInfoForm from "./registforms/storeinfo.form";
 
 export default function RegistBody({ onChangeView } : { onChangeView(view: ViewBody): void }) {
-    const [page, setPage] = useState<PageType>("pass")
+    const [form, setForm] = useState<PageType>("pass")
     const requestbody = useRef<RegistRequestBody>({})
 
     const addPass = (data: string) => requestbody.current.pass = data
@@ -15,13 +16,21 @@ export default function RegistBody({ onChangeView } : { onChangeView(view: ViewB
     const addStoreDetail = (data: StoreDetailInfo) => requestbody.current.storeinfo!.detail = data
     const addImages = (data: string[]) => requestbody.current.storeinfo!.detail!.images = data
 
-    switch(page) {
+    switch(form) {
         case "pass":
         return (
             <PassForm
-            setChangePage={setPage}
+            setChangeForm={setForm}
             setChangeView={onChangeView}
             addPass={addPass}/>
+        )
+        case "storeinfo":
+        return (
+            <StoreInfoForm
+            setChangeForm={setForm}
+            setChangeView={onChangeView}
+            addStoreInfo={addStoreInfo}
+            />
         )
         default:
         return (

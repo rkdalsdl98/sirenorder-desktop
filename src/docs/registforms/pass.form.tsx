@@ -6,11 +6,11 @@ import { PageType } from "../../type/regist.type"
 export default function PassForm({
     addPass,
     setChangeView,
-    setChangePage,
+    setChangeForm,
 }: { 
     addPass(data: string) : void,
     setChangeView(view: ViewBody) : void,
-    setChangePage(page: PageType) : void,
+    setChangeForm(page: PageType) : void,
 }) {
     const [pass, setPass] = useState<string>("")
     const onChangePass = (event: any) => setPass(event.target.value)
@@ -28,7 +28,7 @@ export default function PassForm({
         const isValid = validation()
         if(isValid) {
             addPass(pass)
-            //setChangePage("storeinfo")
+            setChangeForm("storeinfo")
         } else {
             // alert function....
         }

@@ -21,9 +21,10 @@
 /* 공용 */
 .inputform {
     width: inherit;
-    height: 120px;
+    height: inherit;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .inputform input {
@@ -36,6 +37,42 @@
     color: #44474F;
     margin-top: 20px;
     padding-left: 10px;
+}
+
+.inputform div {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputform div img {
+    padding-top: 10px;
+    width: 320px;
+    height: 160px;
+}
+
+.inputform div h6 {
+    font-size: 10px;
+    font-weight: 600;
+    color: #001849;
+}
+
+.inputform div p {
+    font-size: 8px;
+    font-weight: 300;
+    color: #001849;
+}
+
+.inputImage {
+    background: url("./images/imgicon.png") no-repeat left;
+    background-size: 12px;
+    background-position: 10px;
+    cursor: pointer;
+}
+
+.inputform input:focus {
+    outline: none;
 }
 
 .highlightcomment {
@@ -97,3 +134,21 @@
 }
 
 /* 회원가입 */
+
+/* 가게정보 */
+
+.largebody {
+    width: 400px;
+    height: 540px;
+    display: flex;
+    flex-direction: column;
+}
+
+.largebody span {
+    font-size: 24px;
+    font-weight: 400;
+    color: #001849;
+    align-self: start;
+}
+
+/* 가게정보 */
