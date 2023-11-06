@@ -31,3 +31,4 @@ export type StoreDetailInfo = {
 }
 
 export type PageType = "pass" | "storeinfo" | "detailinfo" | "last"
+export type PlaceHolerSize = "small" | "middle" | "large"

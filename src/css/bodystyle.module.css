@@ -115,6 +115,75 @@
     justify-content: space-between;
 }
 
+.hours {
+    width: 400px;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 20px;
+}
+
+.hours input {
+    width: 120px;
+    height: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    background-color: #E1E2EC;
+    border: none;
+    color: #44474F;
+}
+
+.hours h5 {
+    font-size: 12px;
+    color: #001849;
+}
+
+.hours .openhours div {
+    width: 160px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hours .closehours div {
+    width: 160px;
+    height: 40px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hours .openhours #placeholder_large_size input::-webkit-input-placeholder {
+    font-size: 10px;
+}
+
+.hours .closehours #placeholder_large_size input::-webkit-input-placeholder {
+    font-size: 10px;
+}
+
+.hours .openhours #placeholder_middle_size input::-webkit-input-placeholder {
+    font-size: 8px;
+}
+
+.hours .closehours #placeholder_middle_size input::-webkit-input-placeholder {
+    font-size: 8px;
+}
+
+.hours .openhours #placeholder_small_size input::-webkit-input-placeholder {
+    font-size: 7px;
+}
+
+.hours .closehours #placeholder_small_size input::-webkit-input-placeholder {
+    font-size: 7px;
+}
+
 /* 공용 */
 
 /* 회원가입 */
@@ -152,3 +221,29 @@
 }
 
 /* 가게정보 */
+
+/* 가게상세정보 */
+
+.middlebody {
+    width: 400px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.middlebody span {
+    font-size: 24px;
+    font-weight: 400;
+    color: #001849;
+    align-self: start;
+}
+
+.middlebody #comment {
+    font-size: 8px;
+    font-weight: 600;
+    color: #001849;
+    align-self: center;
+}
+
+/* 가게상세정보 */

@@ -3,6 +3,7 @@ import { PageType, StoreInfo } from "../../type/regist.type";
 import bodystyle from "../../css/bodystyle.module.css"
 import { useRef, useState } from "react";
 import emptyimg from "../../css/images/empty.png"
+import TwoSideButton from "../common/twosidebutton";
 
 export default function StoreInfoForm({
     addStoreInfo,
@@ -50,12 +51,14 @@ export default function StoreInfoForm({
                 return false
         }
     }
-    const findThumbnail = (event: any) => {
-        finder.current.click()
-    }
-
+    const findThumbnail = (event: any) => finder.current.click()
     const validation = () : boolean => {
-        return true
+        if(/^[가-힣a-z-A-Z]{1,20}$/.test(storeName)
+        && address.length <= 100
+        && thumbnail !== null) {
+            return true
+        }
+        return false
     }
 
     const next = () => {
@@ -64,8 +67,9 @@ export default function StoreInfoForm({
             addStoreInfo({
                 storename: storeName,
                 storeaddress: address,
+                thumbnail: thumbnail!,
             })
-            setChangeForm("storeinfo")
+            setChangeForm("detailinfo")
         } else {
             // alert function....
         }
@@ -104,16 +108,10 @@ export default function StoreInfoForm({
                     <p>이미지 크기는 2:1 비율을 추천 드립니다.</p>
                 </div>
             </form>
-            <div className={bodystyle.twosidewrapper}>
-                <div
-                className={bodystyle.actionbutton}
-                onClick={onChangeView}
-                ><p>취소</p></div>
-                <div
-                className={bodystyle.actionbutton}
-                onClick={next}
-                ><p>다음</p></div>
-            </div>
+            <TwoSideButton
+            prev={onChangeView}
+            next={next}
+            />
         </div>
     )
 }

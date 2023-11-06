@@ -2,6 +2,7 @@ import { useState } from "react"
 import bodystyle from "../../css/bodystyle.module.css"
 import { ViewBody } from "../../type/home.type"
 import { PageType } from "../../type/regist.type"
+import TwoSideButton from "../common/twosidebutton"
 
 export default function PassForm({
     addPass,
@@ -45,16 +46,10 @@ export default function PassForm({
                 maxLength={20}
                 />
             </form>
-            <div className={bodystyle.twosidewrapper}>
-                <div
-                className={bodystyle.actionbutton}
-                onClick={onChangeView}
-                ><p>취소</p></div>
-                <div
-                className={bodystyle.actionbutton}
-                onClick={next}
-                ><p>다음</p></div>
-            </div>
+            <TwoSideButton
+            prev={onChangeView}
+            next={next}
+            />
         </div>
     )
 }

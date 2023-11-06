@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { PageType, RegistRequestBody, StoreDetailInfo, StoreInfo } from "../type/regist.type";
 import PassForm from "./registforms/pass.form";
 import StoreInfoForm from "./registforms/storeinfo.form";
+import DetailInfoForm from "./registforms/detailinfo.form";
 
 export default function RegistBody({ onChangeView } : { onChangeView(view: ViewBody): void }) {
     const [form, setForm] = useState<PageType>("pass")
@@ -32,6 +33,14 @@ export default function RegistBody({ onChangeView } : { onChangeView(view: ViewB
             addStoreInfo={addStoreInfo}
             />
         )
+        case "detailinfo":
+            return (
+                <DetailInfoForm
+                setChangeForm={setForm}
+                setChangeView={onChangeView}
+                addStoreDetail={addStoreDetail}
+                />
+            )
         default:
         return (
             <div>
