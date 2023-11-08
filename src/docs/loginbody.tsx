@@ -2,13 +2,20 @@ import { useState } from 'react';
 import bodystyle from "../css/bodystyle.module.css"
 import { ViewBody } from '../type/home.type';
 
-export default function LoginBody({ onChangeView } : { onChangeView(view: ViewBody): void }) {
+export default function LoginBody({ 
+    onChangeView,
+    onChangeLoadingState,
+} : { 
+    onChangeView(view: ViewBody): void,
+    onChangeLoadingState(state: boolean) : void,
+}) {
     const [loginCode, setLoginCode] = useState<string>("")
     const [pass, setPass] = useState<string>("")
 
     const onChangeCodeInput = (event: any) => setLoginCode(event.target.value)
     const onChangePassInput = (event: any) => setPass(event.target.value)
     const setChangeView = () => onChangeView("regist")
+    
     return (
     <div className={bodystyle.loginbody}>
         <span>로그인</span>

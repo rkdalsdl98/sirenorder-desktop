@@ -22,9 +22,9 @@
     position: absolute;
     width: 80px;
     text-align: center;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
-    transform: translate(188%, -20px);
+    transform: translate(185%, -20px);
     transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
     z-index: 1;
 }
@@ -39,7 +39,7 @@
     text-align: center;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
     border-radius: 3px;
-    transform: translate(-190%, -20px);
+    transform: translate(-185%, -20px);
     transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
     z-index: 1;
 }

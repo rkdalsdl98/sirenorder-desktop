@@ -3,6 +3,7 @@ import bodystyle from "../../css/bodystyle.module.css"
 import { ViewBody } from "../../type/home.type"
 import { PageType } from "../../type/regist.type"
 import TwoSideButton from "../common/twosidebutton"
+import { RegistValidation } from "./validation"
 
 export default function PassForm({
     addPass,
@@ -17,22 +18,11 @@ export default function PassForm({
     const onChangePass = (event: any) => setPass(event.target.value)
     const onChangeView = () => setChangeView("login")
 
-    const validation = () : boolean => {
-        if(/[0-9a-zA-Z]{6,20}/.test(pass)
-        && /[\!\`\~\@\#\$\%\^\&\*\_\+\=\/\>\<\?]{1,}/.test(pass)) {
-            return true
-        }
-        return false
-    }
-
     const next = () => {
-        const isValid = validation()
-        if(isValid) {
+        if(RegistValidation.pass(pass)) {
             addPass(pass)
             setChangeForm("storeinfo")
-        } else {
-            // alert function....
-        }
+        } else alert("비밀번호는 특수문자를 포함한 6글자 이상이어야 합니다.")
     }
     
     return (

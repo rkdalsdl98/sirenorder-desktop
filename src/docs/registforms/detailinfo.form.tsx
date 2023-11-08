@@ -17,8 +17,8 @@ export default function DetailInfoForm({
 }) {
     const [openHours, setOpenHours] = useState<Hours>({})
     const [sirenOrderAndDT, setSirenOrderAndDT] = useState<SirenOrderHours>({})
-    const [phoneNumber, setPhoneNumber] = useState<string>("")
-    const [parkingInfo, setParkingInfo] = useState<string>("")
+    const [phonenumber, setPhoneNumber] = useState<string>("")
+    const [parkinginfo, setParkingInfo] = useState<string>("")
     const [waytocome, setWaytocome] = useState<string>("")
     const [description, setDescription] = useState<string>("")
 
@@ -30,21 +30,51 @@ export default function DetailInfoForm({
     const onChangeDescription = (event: any) => setDescription(event.target.value)
     
     const onChangeView = () => setChangeView("login")
-    const validation = () => {
-
+    const parseSiDt = () : Hours[] => {
+        let parsingHours : Hours[] = []
+        Object.values(sirenOrderAndDT).forEach(v => {
+            if(v !== undefined) parsingHours.push(v)
+        })
+        return  parsingHours 
     }
-
-    const next = () => {
-        if(RegistValidation.hours(openHours)) {
-            console.log(openHours)
+    const alertMessage = (type: string) => {
+        switch(type) {
+            case "hours":
+                alert("시간은 0~12사이에 숫자만 입력이 가능합니다.")
+                return
+            case "phonenumber":
+                alert("매장번호를 한번 더 확인해주세요.")
+                return
+            case "description":
+                alert("소개는 100글자 이내로 작성 해야합니다.")
+                return
+            default:
+                alert("알 수 없는 오류가 발생했습니다.\n앱을 종료한 이후에 재실행 해주세요.")
+                return
         }
-        // addStoreDetail({
-        //     openhour: openHours,
-        //     sirenorderhours: sirenOrderAndDT,
-        //     phonenumber: phoneNumber,
-        //     waytocome,
-        //     description,
-        // })
+    }
+    const next = () => {
+        const hours = [...parseSiDt(), openHours]
+        const detail = {
+            hours,
+            phonenumber,
+            parkinginfo,
+            waytocome,
+            description,
+        }
+
+        const validation = RegistValidation.checkDetailInfo({ ...detail })
+        if(typeof validation === "boolean") {
+            addStoreDetail({
+                // 사이렌오더만 적용중이기에 배열의 길이는 항상 2 이다.
+                hours: { openhours: hours[1], sirenorderhours: { sirenorder: hours[0] }},
+                phonenumber: detail.phonenumber,
+                parkinginfo: detail.parkinginfo,
+                waytocome: detail.waytocome,
+                description: detail.description,
+            })
+            setChangeForm("subimage")
+        } else alertMessage(validation.type)
     }
 
     return (
@@ -64,13 +94,13 @@ export default function DetailInfoForm({
             <p id={bodystyle.comment}>시간 옆에 AM, PM을 클릭하여 시간대를 변경 할 수 있습니다.</p>
             <form className={bodystyle.inputform}>
                 <input
-                value={phoneNumber}
+                value={phonenumber}
                 onChange={onChangePhoneNumber}
                 placeholder="-를 제외한 매장 대표번호를 입력해주세요."
                 maxLength={11}
                 />
                 <input
-                value={parkingInfo}
+                value={parkinginfo}
                 onChange={onChangeParkingInfo}
                 placeholder="주차 관련 정보를 입력해주세요."
                 maxLength={50}

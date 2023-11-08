@@ -4,8 +4,16 @@ import { PageType, RegistRequestBody, StoreDetailInfo, StoreInfo } from "../type
 import PassForm from "./registforms/pass.form";
 import StoreInfoForm from "./registforms/storeinfo.form";
 import DetailInfoForm from "./registforms/detailinfo.form";
+import SubImageForm from "./registforms/subimage.form";
+import CreateResultForm from "./registforms/result.form";
 
-export default function RegistBody({ onChangeView } : { onChangeView(view: ViewBody): void }) {
+export default function RegistBody({ 
+    onChangeView,
+    onChangeLoadingState,
+} : { 
+    onChangeView(view: ViewBody): void,
+    onChangeLoadingState(state: boolean): void,
+}) {
     const [form, setForm] = useState<PageType>("pass")
     const requestbody = useRef<RegistRequestBody>({})
 
@@ -16,7 +24,7 @@ export default function RegistBody({ onChangeView } : { onChangeView(view: ViewB
     }
     const addStoreDetail = (data: StoreDetailInfo) => requestbody.current.storeinfo!.detail = data
     const addImages = (data: string[]) => requestbody.current.storeinfo!.detail!.images = data
-
+    
     switch(form) {
         case "pass":
         return (
@@ -34,13 +42,27 @@ export default function RegistBody({ onChangeView } : { onChangeView(view: ViewB
             />
         )
         case "detailinfo":
-            return (
-                <DetailInfoForm
-                setChangeForm={setForm}
-                setChangeView={onChangeView}
-                addStoreDetail={addStoreDetail}
-                />
-            )
+        return (
+            <DetailInfoForm
+            setChangeForm={setForm}
+            setChangeView={onChangeView}
+            addStoreDetail={addStoreDetail}
+            />
+        )
+        case "subimage":
+        return (
+            <SubImageForm
+            setChangeForm={setForm}
+            setChangeView={onChangeView}
+            addImages={addImages}
+            />
+        )
+        case "last":
+        return (
+            <CreateResultForm
+            onChangeLoadingState={onChangeLoadingState}
+            setChangeView={onChangeView}/>
+        )
         default:
         return (
             <div>

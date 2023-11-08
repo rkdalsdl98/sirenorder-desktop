@@ -4,6 +4,7 @@ import bodystyle from "../../css/bodystyle.module.css"
 import { useRef, useState } from "react";
 import emptyimg from "../../css/images/empty.png"
 import TwoSideButton from "../common/twosidebutton";
+import { RegistValidation } from "./validation";
 
 export default function StoreInfoForm({
     addStoreInfo,
@@ -14,9 +15,9 @@ export default function StoreInfoForm({
     setChangeView(view: ViewBody) : void,
     setChangeForm(page: PageType) : void,
 }) {
-    const [storeName, setStoreName] = useState<string>("")
+    const [storename, setStoreName] = useState<string>("")
     const [address, setAddress] = useState<string>("")
-    const [thumbnail, setThumbnail] = useState<string | null>(null)
+    const [thumbnail, setThumbnail] = useState<string | undefined>(undefined)
     const finder =  useRef<any>(null)
 
     const onChangeStoreName = (event: any) => setStoreName(event.target.value)
@@ -28,10 +29,8 @@ export default function StoreInfoForm({
         if(files.length !== 1) {
             return
         }
-
         const file : File = files[0]
-        const splitFile = file.name.split(".")
-        if(checkFileFormat(splitFile[splitFile.length - 1])) {
+        if(RegistValidation.checkFileFormat(file)) {
             const fileReader = new FileReader()
             fileReader.readAsDataURL(file)
             fileReader.onload = () => {
@@ -40,46 +39,39 @@ export default function StoreInfoForm({
             }
         }
     }
-
-    const checkFileFormat = (format: string) : boolean => {
-        switch(format) {
-            case "png":
-            case "jpg":
-            case "jpeg":
-                return true
+    const alertMessage = (type: string) => {
+        switch(type) {
+            case "storename":
+                alert("가게 이름은 20자 이내로 작성 해야합니다.")
+                return
+            case "thumbnail":
+                alert("대표 이미지를 선택해주세요.")
+                return
             default:
-                return false
+                alert("알 수 없는 오류가 발생했습니다.\n앱을 종료한 이후에 재실행 해주세요.")
+                return
         }
     }
-    const findThumbnail = (event: any) => finder.current.click()
-    const validation = () : boolean => {
-        if(/^[가-힣a-z-A-Z]{1,20}$/.test(storeName)
-        && address.length <= 100
-        && thumbnail !== null) {
-            return true
-        }
-        return false
-    }
-
+    const findThumbnail = (_: any) => finder.current.click()
     const next = () => {
-        const isValid = validation()
-        if(isValid) {
-            addStoreInfo({
-                storename: storeName,
-                storeaddress: address,
-                thumbnail: thumbnail!,
-            })
-            setChangeForm("detailinfo")
-        } else {
-            // alert function....
+        const info = {
+            storename,
+            address,
+            thumbnail,
         }
+        
+        const validation = RegistValidation.checkInfo({...info})
+        if(typeof validation === "boolean") {
+            addStoreInfo(info)
+            setChangeForm("detailinfo")
+        } else alertMessage(validation.type)
     }
     return (
         <div className={bodystyle.largebody}>
             <span>가게정보</span>
             <form className={bodystyle.inputform}>
                 <input
-                value={storeName}
+                value={storename}
                 onChange={onChangeStoreName}
                 placeholder="가게이름을 입력해주세요."
                 maxLength={20}

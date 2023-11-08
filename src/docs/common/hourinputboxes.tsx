@@ -39,21 +39,23 @@ export function HourInputBoxes({
     }
     const onChangeOpen = async (event: any) => {
         const v = event.target.value
-        setOpen(`${v}:${openDayAndNight}`)
-        setCurrValue({ open: `${v}:${openDayAndNight}`, close })
+        setOpen(v)
+        setCurrValue({ open: `${v}:${openDayAndNight}`, close: `${close}:${closeDayAndNight}` })
     }
     const onChangeclose = async (event: any) => {
         const v = event.target.value
-        setClose(`${v}:${closeDayAndNight}`)
-        setCurrValue({ open, close: `${v}:${closeDayAndNight}` })
+        setClose(v)
+        setCurrValue({ open: `${open}:${openDayAndNight}`, close: `${v}:${closeDayAndNight}` })
     }
 
     const onChangeOpenDayAndNight = (data: string) => {
         setOpenDayAndNight(data)
+        setCurrValue({ open: `${open}:${data}`, close: `${close}:${closeDayAndNight}` })
         handleClickOpenDropdownViewContainer()
     }
     const onChangeCloseDayAndNight = (data: string) => {
         setCloseDayAndNight(data)
+        setCurrValue({ open: `${open}:${openDayAndNight}`, close: `${close}:${data}` })
         handleClickCloseDropdownViewContainer()
     }
 

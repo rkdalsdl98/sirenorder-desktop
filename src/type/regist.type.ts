@@ -21,8 +21,7 @@ export type SirenOrderHours = {
 }
 
 export type StoreDetailInfo = {
-    openhour?: Hours
-    sirenorderhours?: SirenOrderHours
+    hours?: { openhours: Hours, sirenorderhours: SirenOrderHours }
     phonenumber?: string
     parkinginfo?: string
     waytocome?: string
@@ -30,5 +29,5 @@ export type StoreDetailInfo = {
     description?: string
 }
 
-export type PageType = "pass" | "storeinfo" | "detailinfo" | "last"
+export type PageType = "pass" | "storeinfo" | "detailinfo" | "subimage" | "last"
 export type PlaceHolerSize = "small" | "middle" | "large"
