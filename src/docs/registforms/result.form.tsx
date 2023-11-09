@@ -34,6 +34,30 @@ export default function CreateResultForm({
                 </div>
                 <p>우측에 아이콘을 클릭하여 복사 할 수 있습니다.</p>
             </div>
+            <div className={bodystyle.logincode_container}>
+                <span id={bodystyle.header}>가게 코드</span>
+                <div className={bodystyle.wrapper}>
+                    <input
+                    id={bodystyle.inputImage}
+                    readOnly
+                    onClick={copyUUID}
+                    value={uuid}
+                    ></input>
+                </div>
+                <p>우측에 아이콘을 클릭하여 복사 할 수 있습니다.</p>
+            </div>
+            <div className={bodystyle.logincode_container}>
+                <span id={bodystyle.header}>지갑 코드</span>
+                <div className={bodystyle.wrapper}>
+                    <input
+                    id={bodystyle.inputImage}
+                    readOnly
+                    onClick={copyUUID}
+                    value={uuid}
+                    ></input>
+                </div>
+                <p>우측에 아이콘을 클릭하여 복사 할 수 있습니다.</p>
+            </div>
             <div
             onClick={() => setChangeView("login")}
             className={bodystyle.actionbutton}

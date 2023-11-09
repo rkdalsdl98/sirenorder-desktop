@@ -26,7 +26,7 @@ export namespace RegistValidation {
         return false
     }
     export const pass = (str: string) : boolean => {
-        return /[0-9a-zA-Z\!\`\~\@\#\$\%\^\&\*\_\+\=\/\>\<\?]{5,20}/.test(str)
+        return /[0-9a-zA-Z]/.test(str)
         && /[\!\`\~\@\#\$\%\^\&\*\_\+\=\/\>\<\?]{1,}/.test(str)
     }
     export const checkFileFormat = (
@@ -58,7 +58,7 @@ export namespace RegistValidation {
         return number.length === 11 && /^[0-9]{3}[0-9]{4}[0-9]{4}$/.test(number)
     }
     export const isValidStoreName = (name: string) : boolean => {
-        return /^[가-힣a-z-A-Z]{1,20}$/.test(name)
+        return /^[ㄱ-ㅎ가-힣a-z-A-Z]{1,20}$/.test(name)
     }
     export const checkInfo = (info: {
         storename: string,

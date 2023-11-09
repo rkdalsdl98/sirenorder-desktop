@@ -300,7 +300,7 @@
 
 .create_result_container {
     width: 400px;
-    height: 400px;
+    height: 660px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

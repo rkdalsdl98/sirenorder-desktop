@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import bodystyle from "../css/bodystyle.module.css"
 import { ViewBody } from '../type/home.type';
+import { RegistRequest } from './registforms/request';
+import { FailedResponse, METHOD_OF_SUCCESS_STATUS, SuccessResponse } from '../type/request.type';
 
 export default function LoginBody({ 
     onChangeView,
