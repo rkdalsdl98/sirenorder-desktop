@@ -3,13 +3,26 @@ import Box from '@mui/material/Box';
 import { SxProps } from '@mui/material';
 import { CSSProperties } from 'styled-components';
 
-export default function Loading() {
+/**
+ * 로딩 state는 반드시 외부에서 관리하도록 작성
+ * @param state 
+ * @returns 
+ */
+export default function Loading({
+    loadingState,
+} : {
+    loadingState: boolean,
+}) {
     return (
-        <Box sx={loadingContainer}>
-            <CircularProgress
-            style={circularProgress}
-            />
-        </Box>
+        loadingState
+        ? ( 
+            <Box sx={loadingContainer}>
+                <CircularProgress
+                style={circularProgress}
+                />
+            </Box>
+        )
+        : (<div style={{display: "none"}}></div>)
     )
 }
 

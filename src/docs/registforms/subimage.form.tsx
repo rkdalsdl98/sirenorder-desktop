@@ -3,8 +3,8 @@ import { PageType } from "../../type/regist.type";
 import bodystyle from "../../css/bodystyle.module.css"
 import TwoSideButton from "../common/twosidebutton";
 import deleteimg from "../../css/images/delete_icon.png"
-import { useCallback, useEffect, useRef, useState } from "react";
-import { RegistValidation } from "./validation";
+import { useRef, useState } from "react";
+import { RegistValidation } from "./methods/validation";
 
 export default function SubImageForm({
     addImages,

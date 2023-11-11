@@ -3,7 +3,7 @@ import bodystyle from "../../css/bodystyle.module.css"
 import { ViewBody } from "../../type/home.type"
 import { PageType } from "../../type/regist.type"
 import TwoSideButton from "../common/twosidebutton"
-import { RegistValidation } from "./validation"
+import { RegistValidation } from "./methods/validation"
 
 export default function PassForm({
     addPass,

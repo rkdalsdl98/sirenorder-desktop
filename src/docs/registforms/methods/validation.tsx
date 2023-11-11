@@ -1,5 +1,5 @@
-import { Hours, StoreDetailInfo, StoreInfo } from "../../type/regist.type";
-import { ValidationResult } from "../../type/validation.type";
+import { Hours, StoreDetailInfo, StoreInfo } from "../../../type/regist.type";
+import { ValidationResult } from "../../../type/validation.type";
 
 export namespace RegistValidation {
     export const checkHours = (
@@ -72,7 +72,8 @@ export namespace RegistValidation {
         return true
     }
     export const checkDetailInfo = (detail: {
-        hours: Hours | Hours[],
+        openhours: Hours,
+        sirenorderhours: Hours,
         phonenumber: string,
         description?: string,
     }) : ValidationResult<Omit<
@@ -80,9 +81,11 @@ export namespace RegistValidation {
     | "parkinginfo"
     | "waytocome"
     | "images"
-    >> => {
+    | "openhours"
+    | "sirenorderhours"
+    > & { hours: Hours }> => {
         // 검증별 메시지를 나누기 위함
-        if(!checkHours(detail.hours))
+        if(!checkHours([detail.openhours, detail.sirenorderhours]))
             return { result: false, type: "hours" }
         if(!isPhonenumber(detail.phonenumber))
             return { result: false, type: "phonenumber" }

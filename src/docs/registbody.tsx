@@ -9,10 +9,8 @@ import CreateResultForm from "./registforms/result.form";
 
 export default function RegistBody({ 
     onChangeView,
-    onChangeLoadingState,
 } : { 
     onChangeView(view: ViewBody): void,
-    onChangeLoadingState(state: boolean): void,
 }) {
     const [form, setForm] = useState<PageType>("pass")
     const requestbody = useRef<RegistRequestBody>({})
@@ -24,7 +22,7 @@ export default function RegistBody({
     }
     const addStoreDetail = (data: StoreDetailInfo) => requestbody.current.storeinfo!.detail = data
     const addImages = (data: string[]) => requestbody.current.storeinfo!.detail!.images = data
-    
+    const getReqBody = () => requestbody.current
     switch(form) {
         case "pass":
         return (
@@ -49,18 +47,18 @@ export default function RegistBody({
             addStoreDetail={addStoreDetail}
             />
         )
-        case "subimage":
-        return (
-            <SubImageForm
-            setChangeForm={setForm}
-            setChangeView={onChangeView}
-            addImages={addImages}
-            />
-        )
+        // case "subimage":
+        // return (
+        //     <SubImageForm
+        //     setChangeForm={setForm}
+        //     setChangeView={onChangeView}
+        //     addImages={addImages}
+        //     />
+        // )
         case "last":
         return (
             <CreateResultForm
-            onChangeLoadingState={onChangeLoadingState}
+            getReqBody={getReqBody}
             setChangeView={onChangeView}/>
         )
         default:

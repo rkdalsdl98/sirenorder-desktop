@@ -1,10 +1,10 @@
 import { ViewBody } from "../../type/home.type";
-import { Hours, PageType, SirenOrderHours, StoreDetailInfo } from "../../type/regist.type";
+import { Hours, PageType, StoreDetailInfo } from "../../type/regist.type";
 import bodystyle from "../../css/bodystyle.module.css"
 import TwoSideButton from "../common/twosidebutton";
 import { HourInputBoxes } from "../common/hourinputboxes";
 import { useState } from "react";
-import { RegistValidation } from "./validation";
+import { RegistValidation } from "./methods/validation";
 
 export default function DetailInfoForm({
     addStoreDetail,
@@ -16,27 +16,20 @@ export default function DetailInfoForm({
     setChangeForm(page: PageType) : void,
 }) {
     const [openHours, setOpenHours] = useState<Hours>({})
-    const [sirenOrderAndDT, setSirenOrderAndDT] = useState<SirenOrderHours>({})
+    const [sirenOrderAndDT, setSirenOrderAndDT] = useState<Hours>({})
     const [phonenumber, setPhoneNumber] = useState<string>("")
     const [parkinginfo, setParkingInfo] = useState<string>("")
     const [waytocome, setWaytocome] = useState<string>("")
     const [description, setDescription] = useState<string>("")
 
     const onChangeOpenHours = (hours: Hours) => setOpenHours(hours)
-    const onChangesirenOrderAndDT = (hours: Hours) => setSirenOrderAndDT({ sirenorder: hours })
+    const onChangesirenOrderAndDT = (hours: Hours) => setSirenOrderAndDT(hours)
     const onChangePhoneNumber = (event: any) => setPhoneNumber(event.target.value)
     const onChangeParkingInfo = (event: any) => setParkingInfo(event.target.value)
     const onChangeWaytocome = (event: any) => setWaytocome(event.target.value)
     const onChangeDescription = (event: any) => setDescription(event.target.value)
     
     const onChangeView = () => setChangeView("login")
-    const parseSiDt = () : Hours[] => {
-        let parsingHours : Hours[] = []
-        Object.values(sirenOrderAndDT).forEach(v => {
-            if(v !== undefined) parsingHours.push(v)
-        })
-        return  parsingHours 
-    }
     const alertMessage = (type: string) => {
         switch(type) {
             case "hours":
@@ -54,9 +47,9 @@ export default function DetailInfoForm({
         }
     }
     const next = () => {
-        const hours = [...parseSiDt(), openHours]
         const detail = {
-            hours,
+            openhours: openHours,
+            sirenorderhours: sirenOrderAndDT,
             phonenumber,
             parkinginfo,
             waytocome,
@@ -65,15 +58,8 @@ export default function DetailInfoForm({
 
         const validation = RegistValidation.checkDetailInfo({ ...detail })
         if(typeof validation === "boolean") {
-            addStoreDetail({
-                // 사이렌오더만 적용중이기에 배열의 길이는 항상 2 이다.
-                hours: { openhours: hours[1], sirenorderhours: { sirenorder: hours[0] }},
-                phonenumber: detail.phonenumber,
-                parkinginfo: detail.parkinginfo,
-                waytocome: detail.waytocome,
-                description: detail.description,
-            })
-            setChangeForm("subimage")
+            addStoreDetail(detail)
+            setChangeForm("last")
         } else alertMessage(validation.type)
     }
 

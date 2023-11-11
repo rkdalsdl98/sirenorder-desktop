@@ -26,6 +26,15 @@ export const METHOD_OF_SUCCESS_STATUS : Record<Method, number> = {
     "GET": 200,
 }
 
-export type RequestException = 
+export type RequestExceptionType = 
 | "TimeOutException"
 | "UnknownException"
+
+export class RequestException {
+    constructor(
+        readonly exception: RequestExceptionType,
+        readonly message: string,
+    ){}
+}
+
+export type RequestState = "idle" | "wait" | "done" | "fail"

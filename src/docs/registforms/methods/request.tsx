@@ -1,4 +1,9 @@
-import { FailedResponse, Method, SuccessResponse } from "../../type/request.type"
+import { 
+    FailedResponse, 
+    Method, 
+    RequestException, 
+    SuccessResponse,
+} from "../../../type/request.type"
 
 export namespace RegistRequest {
     const url : string | undefined = process.env.REACT_APP_FETCH_URL
@@ -25,13 +30,13 @@ export namespace RegistRequest {
             setTimeout(() => {
                 if(!done) {
                     controller.abort()
-                    reject("TimeOutException")
+                    reject(new RequestException("TimeOutException", "요청시간이 초과되었습니다."))
                 }
             }, 10000)
-            await fetch(`${url}/${route}`, {
+            await fetch(`${url}${route}`, {
                 method,
                 signal,
-                body: body === undefined ? undefined : JSON.stringify(body),
+                body: body === undefined ? undefined : JSON.stringify({ data: body }),
                 headers: {
                     "Content-Type": "application/json;charset=UTF-8"
                 }
@@ -40,7 +45,7 @@ export namespace RegistRequest {
             .then(data => {
                 if("status" in data) {
                     resolve(data)
-                } else reject("UnknownException")
+                } else reject(new RequestException("UnknownException", "알 수 없는 오류가 발생했습니다."))
             })
         })
     }

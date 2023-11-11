@@ -1,1 +1,1 @@
-export type ViewBody = "login" | "regist"
+export type ViewBody = "login" | "regist" | "store"

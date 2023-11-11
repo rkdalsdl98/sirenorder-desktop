@@ -4,7 +4,9 @@ import bodystyle from "../../css/bodystyle.module.css"
 import { useRef, useState } from "react";
 import emptyimg from "../../css/images/empty.png"
 import TwoSideButton from "../common/twosidebutton";
-import { RegistValidation } from "./validation";
+import { RegistValidation } from "./methods/validation";
+
+const TEST_THUMBNAIL = "https://firebasestorage.googleapis.com/v0/b/mocatmall.appspot.com/o/img.png?alt=media&token=3cd8e017-3c5c-4214-9573-e2e9514e416b"
 
 export default function StoreInfoForm({
     addStoreInfo,
@@ -35,7 +37,7 @@ export default function StoreInfoForm({
             fileReader.readAsDataURL(file)
             fileReader.onload = () => {
                 if(fileReader.result !== null)
-                    setThumbnail(fileReader.result as string)
+                    setThumbnail(TEST_THUMBNAIL)
             }
         }
     }
