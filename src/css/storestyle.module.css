@@ -1,0 +1,182 @@
+.order_container {
+    width: 660px;
+    height: 660px;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.order_wrapper {
+    width: 250px;
+    height: inherit;
+}
+
+.order_wrapper h1 {
+    font-size: 24px;
+    color: #001849;
+}
+
+.order_wrapper ul {
+    width: 200px;
+    height: 600px;
+    display: inline-flex;
+    flex-direction: column;
+    margin: 0;
+    list-style: none;
+    border: solid black 2px;
+    padding: 5px;
+    overflow-y: scroll;
+    overflow-x: visible;
+    & > li {
+        margin-bottom: 10px;
+    }
+}
+
+.order_wrapper ul::-webkit-scrollbar {
+    visibility: hidden;
+    width: 0px;
+}
+
+.order_wrapper ul #orderlist_item_container {
+    width: inherit;
+    height: 80px;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.order_wrapper ul #orderlist_item_container #type_wrapper {
+    width: 80px;
+    height: 80px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.order_wrapper ul #orderlist_item_container #type_wrapper #type {
+    font-size: 18px;
+    font-weight: bold;
+    color: #001849;
+}
+
+.order_wrapper ul #orderlist_item_container #type_wrapper #button {
+    cursor: pointer;
+    width: 80px;
+    height: 30px;
+    border-radius: 180px;
+    background-color: #E1E2EC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.order_wrapper ul #orderlist_item_container #type_wrapper #button span {
+    font-size: 12px;
+    font-weight: 400;
+    color: #44474F;
+}
+
+.order_wrapper ul #orderlist_item_container #order_no_wrapper {
+    width: 60px;
+    height: 80px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.order_wrapper ul #orderlist_item_container #order_no_wrapper #no {
+    font-size: 10px;
+    font-weight: 400;
+    text-align: left;
+    width: inherit;
+    height: 10px;
+    color: #001849;
+}
+
+.order_wrapper ul #orderlist_item_container #order_no_wrapper #button {
+    width: 60px;
+    height: 60px;
+    background-color: #E1E2EC;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.order_wrapper ul #orderlist_item_container #order_no_wrapper #button span {
+    color: #44474F;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.order_wrapper ul #notifylist_item_container {
+    width: inherit;
+    height: 80px;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.order_wrapper ul #notifylist_item_container #type_wrapper {
+    width: 140px;
+    height: 80px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.order_wrapper ul #notifylist_item_container #type_wrapper #type {
+    font-size: 18px;
+    font-weight: bold;
+    color: #001849;
+}
+
+.order_wrapper ul #notifylist_item_container #type_wrapper .button_container {
+    width: inherit;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.order_wrapper ul #notifylist_item_container #type_wrapper .button_container #button {
+    cursor: pointer;
+    width: 65px;
+    height: 25px;
+    border-radius: 180px;
+    background-color: #E1E2EC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.order_wrapper ul #notifylist_item_container #type_wrapper .button_container #button span {
+    font-size: 12px;
+    font-weight: 400;
+    color: #44474F;
+}
+
+.order_wrapper ul #notifylist_item_container #square {
+    height: inherit;
+    display: inline-flex;
+}
+
+.order_wrapper ul #notifylist_item_container #square #button {
+    width: 55px;
+    height: 60px;
+    align-self: center;
+    background-color: #E1E2EC;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.order_wrapper ul #notifylist_item_container #square #button span {
+    color: #44474F;
+    font-size: 10px;
+    font-weight: 400;
+    text-align: center;
+}
