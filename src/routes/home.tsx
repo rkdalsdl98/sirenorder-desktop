@@ -13,7 +13,7 @@ export default function Home({} : {}) {
 
     const connect = (data: SocketLoginBody) => {
         const con = SocketMethods.Connection.connectSocket()
-        if(!con || (con && !con.connected)) {
+        if(!con) {
             alert("서버와 연결에 실패했습니다.")
             return
         }
@@ -32,9 +32,13 @@ export default function Home({} : {}) {
             pass: data.pass,
         } as SocketLoginBody,
         (res: any) => {
-            setSocket(con)
-            setView("store")
-            console.log(res)
+            if(!("result" in res) || !res.result) {
+                alert(res.message)
+                SocketMethods.Connection.disconnect(con)
+            } else {
+                setSocket(con)
+                setView("store")
+            }
         })
     }
     const disconnect = () => {

@@ -1,5 +1,7 @@
 import { ViewBody } from "../type/home.type";
-import bodystyle from "../css/bodystyle.module.css"
+import storestyle from "../css/storestyle.module.css"
+import OrderListItem from "./store/order_list_item";
+import StoreNotifyListItem from "./store/notify_list_item";
 
 export default function StoreBody({ 
     onChangeView,
@@ -14,10 +16,37 @@ export default function StoreBody({
     }
     return (
         <div>
-            <div
-            className={bodystyle.actionbutton}
-            onClick={logout}
-            ><p>로그아웃</p></div>
+            <div className={storestyle.order_container}>
+                <div className={storestyle.order_wrapper}>
+                    <h1>주문 목록</h1>
+                    <ul>
+                        <OrderListItem/>
+                        <OrderListItem/>
+                        <OrderListItem/>
+                        <OrderListItem/>
+                        <OrderListItem/>
+                        <OrderListItem/>
+                        <OrderListItem/>
+                        <OrderListItem/>
+                        <OrderListItem/>
+                    </ul>
+                </div>
+                <div className={storestyle.order_wrapper}>
+                    <h1>주문 알림</h1>
+                    <ul>
+                        <StoreNotifyListItem/>
+                        <StoreNotifyListItem/>
+                        <StoreNotifyListItem/>
+                        <StoreNotifyListItem/>
+                        <StoreNotifyListItem/>
+                        <StoreNotifyListItem/>
+                        <StoreNotifyListItem/>
+                        <StoreNotifyListItem/>
+                        <StoreNotifyListItem/>
+                        <StoreNotifyListItem/>
+                    </ul>
+                </div>
+            </div>
         </div>
     )
 }
