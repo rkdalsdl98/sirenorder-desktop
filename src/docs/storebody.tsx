@@ -1,25 +1,40 @@
 import { ViewBody } from "../type/home.type";
 import storestyle from "../css/storestyle.module.css"
+import { SocketLoginBody, SocketResponse } from "../socket/socket.type";
+import ConnectState from "./store/connect_state";
+import { Socket } from "socket.io-client";
+import { useEffect, useRef, useState } from "react";
+import { SocketMethods } from "../socket/methods";
+import { Order } from "../type/order.type";
 import OrderListItem from "./store/order_list_item";
 import StoreNotifyListItem from "./store/notify_list_item";
-import { SocketLoginBody } from "../socket/socket.type";
-import StoreOrderDetail from "./store/store_order_detail";
-
+import { StoreCallbackMethods } from "./store/methods";
+import sound from "../sounds/dingdong.mp3"
 
 export default function StoreBody({ 
     onChangeView,
+    getSocket,
     connect,
     disconnect,
     connected,
 } : { 
     onChangeView(view: ViewBody): void,
+    getSocket(): Socket | undefined,
     connect(data: SocketLoginBody): void
     disconnect(): void,
     connected: boolean,
 }) {
+    const [orderNotifies, setOrderNotifies] =  useState<Order[]>([])
+    const [orders, setOrders] = useState<Order[]>([])
+    const bell = useRef<HTMLAudioElement>(null)
+
     const logout = () => {
         disconnect()
         onChangeView("login")
+    }
+    const onUpdateOrderNotifies = (order: Order) => {
+        if(bell.current) bell.current.play()
+        setOrderNotifies([...orderNotifies, order])
     }
     const reConnect = () => {
         const cache = localStorage.getItem("login-data")
@@ -33,58 +48,47 @@ export default function StoreBody({
             return
         }
     }
+    const closeStore = () => {
+        localStorage.removeItem("login-data")
+        disconnect()
+        onChangeView("login")
+    }   
+    useEffect(() => {
+        const socket = getSocket()
+        if(connected) {
+            SocketMethods
+            .EventListeners
+            .setUpEvents(socket!, [
+                {
+                    event: "listen-order",
+                    callback: (res: SocketResponse<Order>) => {
+                        StoreCallbackMethods.order(res, onUpdateOrderNotifies)
+                    },
+                }
+            ])
+        }
+    })
     return (
         <div className={storestyle.store_container}>
-            {/* <StoreOrderDetail/> */}
-            <div className={storestyle.connected_container}>
-                <div className={storestyle.connected_state_container}>
-                    <div id={
-                        connected 
-                        ? storestyle.state_connect
-                        : storestyle.state_disconnect
-                    }></div>
-                    <span>연결상태</span>
-                </div>
-                {
-                    connected
-                    ? <div style={{ display: "none" }}></div>
-                    : <div 
-                        id={storestyle.button}
-                        onClick={reConnect}
-                        >
-                        <span>재연결</span>
-                      </div>
-                }
-            </div>
+            <audio ref={bell} src={sound}>
+            </audio>
+            <ConnectState
+            reConnect={reConnect}
+            connected={connected}
+            closeStore={closeStore}
+            />
             <div className={storestyle.order_container}>
                 <div className={storestyle.order_wrapper}>
                     <h1>주문 목록</h1>
+                    { orders.map((o, i) => ( <OrderListItem key={i}/> )) }
                     <ul>
-                        <OrderListItem/>
-                        <OrderListItem/>
-                        <OrderListItem/>
-                        <OrderListItem/>
-                        <OrderListItem/>
-                        <OrderListItem/>
-                        <OrderListItem/>
-                        <OrderListItem/>
-                        <OrderListItem/>
                     </ul>
                 </div>
                 <div className={storestyle.order_wrapper}>
                     <h1>주문 알림</h1>
-                    <ul>
-                        <StoreNotifyListItem/>
-                        <StoreNotifyListItem/>
-                        <StoreNotifyListItem/>
-                        <StoreNotifyListItem/>
-                        <StoreNotifyListItem/>
-                        <StoreNotifyListItem/>
-                        <StoreNotifyListItem/>
-                        <StoreNotifyListItem/>
-                        <StoreNotifyListItem/>
-                        <StoreNotifyListItem/>
-                    </ul>
+                    <StoreNotifyListItem
+                    notifies={orderNotifies}
+                    />
                 </div>
             </div>
         </div>
