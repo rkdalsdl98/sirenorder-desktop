@@ -7,9 +7,10 @@ import { useEffect, useRef, useState } from "react";
 import { SocketMethods } from "../socket/methods";
 import { Order } from "../type/order.type";
 import OrderListItem from "./store/order_list_item";
-import StoreNotifyListItem from "./store/notify_list_item";
+import StoreNotifyList from "./store/notify_list";
 import { StoreCallbackMethods } from "./store/methods";
 import sound from "../sounds/dingdong.mp3"
+import StoreOrderDetail from "./store/store_order_detail";
 
 export default function StoreBody({ 
     onChangeView,
@@ -26,14 +27,49 @@ export default function StoreBody({
 }) {
     const [orderNotifies, setOrderNotifies] =  useState<Order[]>([])
     const [orders, setOrders] = useState<Order[]>([])
+    const [currOrder, setCurrOrder] = useState<Order | undefined>(undefined)
     const bell = useRef<HTMLAudioElement>(null)
 
     const logout = () => {
         disconnect()
         onChangeView("login")
     }
+    const refuseOrder = (notifies: Order[]) => setOrderNotifies(notifies)
+    const showDetail = (order: Order) => setCurrOrder(order)
+    const closeDetail = () => setCurrOrder(undefined)
+    const onRefuseOrder = (removeKey: string) => {
+        const socket = getSocket()
+        if(!socket) {
+            alert("서버와 연결되어있지 않습니다.")
+            return
+        }
+
+        let order
+        const after = orderNotifies.filter(o => {
+            if(o.uuid === removeKey) {
+                order = o
+                return false
+            }
+            return true
+        })
+
+        try {
+            SocketMethods
+            .Event
+            .emitEvent(socket, {
+                key: "refuse-order",
+                callback: refuseOrder,
+            }, order, after)
+            closeDetail()
+        } catch(e) { alert(`${e}`) }
+    }
     const onUpdateOrderNotifies = (order: Order) => {
-        if(bell.current) bell.current.play()
+        if(bell.current) {
+            if(!bell.current.paused) {
+                bell.current.currentTime = 0
+                bell.current.play()
+            } else bell.current.play()
+        }
         setOrderNotifies([...orderNotifies, order])
     }
     const reConnect = () => {
@@ -58,12 +94,11 @@ export default function StoreBody({
         if(connected) {
             SocketMethods
             .EventListeners
-            .setUpEvents(socket!, [
+            .bindListeners(socket!, [
                 {
-                    event: "listen-order",
-                    callback: (res: SocketResponse<Order>) => {
-                        StoreCallbackMethods.order(res, onUpdateOrderNotifies)
-                    },
+                    key: "listen-order",
+                    callback: (res: SocketResponse<Order>) => 
+                        StoreCallbackMethods.Listeners.order(res, onUpdateOrderNotifies),
                 }
             ])
         }
@@ -72,6 +107,15 @@ export default function StoreBody({
         <div className={storestyle.store_container}>
             <audio ref={bell} src={sound}>
             </audio>
+            {
+                currOrder !== undefined
+                ? <StoreOrderDetail 
+                order={currOrder}
+                onRefuseOrder={onRefuseOrder}
+                onCloseDetail={closeDetail}
+                />
+                : <div style={{display: "none"}}></div>
+            }
             <ConnectState
             reConnect={reConnect}
             connected={connected}
@@ -81,12 +125,13 @@ export default function StoreBody({
                 <div className={storestyle.order_wrapper}>
                     <h1>주문 목록</h1>
                     { orders.map((o, i) => ( <OrderListItem key={i}/> )) }
-                    <ul>
+                    <ul key="order">
                     </ul>
                 </div>
                 <div className={storestyle.order_wrapper}>
                     <h1>주문 알림</h1>
-                    <StoreNotifyListItem
+                    <StoreNotifyList
+                    onOpenDetail={showDetail}
                     notifies={orderNotifies}
                     />
                 </div>

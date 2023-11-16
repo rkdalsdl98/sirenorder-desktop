@@ -2,10 +2,6 @@ export type SocketLoginBody = {
     readonly merchantId: string
     readonly pass: string
 }
-export type SocketRequest<T> = {
-    readonly event: string
-    readonly data?: T
-}
 export type SocketResponse<T> = {
     readonly result: boolean
     readonly message: string

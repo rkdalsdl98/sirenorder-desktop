@@ -122,7 +122,7 @@
 
 .order_wrapper ul #notifylist_item_container {
     width: inherit;
-    height: 80px;
+    height: inherit;
     display: inline-flex;
     flex-direction: row;
     align-items: center;
@@ -134,7 +134,7 @@
     height: 80px;
     display: inline-flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .order_wrapper ul #notifylist_item_container #type_wrapper #type {
@@ -143,28 +143,10 @@
     color: #001849;
 }
 
-.order_wrapper ul #notifylist_item_container #type_wrapper .button_container {
-    width: inherit;
-    height: 30px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.order_wrapper ul #notifylist_item_container #type_wrapper .button_container #button {
-    cursor: pointer;
-    width: 65px;
-    height: 25px;
-    border-radius: 180px;
-    background-color: #E1E2EC;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.order_wrapper ul #notifylist_item_container #type_wrapper .button_container #button span {
-    font-size: 12px;
+.order_wrapper ul #notifylist_item_container #type_wrapper p {
+    font-size: 16px;
     font-weight: 400;
-    color: #44474F;
+    color: #001849;
 }
 
 .order_wrapper ul #notifylist_item_container #square {
@@ -173,8 +155,8 @@
 }
 
 .order_wrapper ul #notifylist_item_container #square #button {
-    width: 55px;
-    height: 60px;
+    width: 60px;
+    height: 70px;
     align-self: center;
     background-color: #E1E2EC;
     display: inline-flex;
@@ -334,8 +316,15 @@
     color: #001A42;
 }
 
-.order_detail_container #button {
-    width: 90px;
+.order_detail_container #buttons {
+    width: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.order_detail_container #buttons #button {
+    width: 70px;
     height: 30px;
     background-color: #E1E2EC;
     border-radius: 180px;
@@ -347,7 +336,7 @@
     cursor: pointer;
 }
 
-.order_detail_container #button span {
+.order_detail_container #buttons #button span {
     font-size: 11px;
     font-weight: 400;
     color: #44474F;

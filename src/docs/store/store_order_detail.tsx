@@ -1,7 +1,18 @@
 import storestyle from "../../css/storestyle.module.css"
 import testimg from "../../css/images/testimg.png"
+import { Order } from "../../type/order.type"
 
-export default function StoreOrderDetail() {
+export default function StoreOrderDetail({
+    order,
+    onRefuseOrder,
+    onCloseDetail,
+} : {
+    order: Order,
+    onRefuseOrder(removeKey: string): void,
+    onCloseDetail(): void,
+}) {
+    const refuseOrder = () => onRefuseOrder(order.uuid)
+
     return (
         <div className={storestyle.order_detail_wrapper}>
             <div className={storestyle.order_detail_container}>
@@ -20,8 +31,22 @@ export default function StoreOrderDetail() {
                         </div>
                     </div>
                 </div>
+                <div id={storestyle.buttons}>
                 <div id={storestyle.button}>
-                    <span>닫기</span>
+                        <span>확인</span>
+                    </div>
+                    <div 
+                    id={storestyle.button}
+                    onClick={refuseOrder}
+                    >
+                        <span>거절</span>
+                    </div>
+                    <div 
+                    id={storestyle.button}
+                    onClick={onCloseDetail}
+                    >
+                        <span>닫기</span>
+                    </div>
                 </div>
                 <div className={storestyle.arrow_button_left}>
                     <span>{"<"}</span>
