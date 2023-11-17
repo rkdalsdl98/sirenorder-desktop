@@ -1,59 +1,89 @@
 import storestyle from "../../css/storestyle.module.css"
-import testimg from "../../css/images/testimg.png"
 import { Order } from "../../type/order.type"
+import { useRef, useState } from "react"
+import Menu from "./menu"
 
 export default function StoreOrderDetail({
     order,
+    isNotify,
+    onAcceptOrder,
     onRefuseOrder,
     onCloseDetail,
 } : {
     order: Order,
+    isNotify: boolean,
+    onAcceptOrder(acceptKey: string): void,
     onRefuseOrder(removeKey: string): void,
     onCloseDetail(): void,
 }) {
+    const [currIndex, setCurrIndex] = useState<number>(0)
+    const prev = useRef<number>(-1)
+    const next = useRef<number>(1)
+
+    const acceptOrder = () => onAcceptOrder(order.uuid)
     const refuseOrder = () => onRefuseOrder(order.uuid)
+    const moveToPrev = () => {
+        --next.current
+        setCurrIndex(prev.current--)
+    }
+    const moveToNext = () => {
+        ++prev.current
+        setCurrIndex(next.current++)
+    }
 
     return (
         <div className={storestyle.order_detail_wrapper}>
             <div className={storestyle.order_detail_container}>
-                <div id={storestyle.img_wrapper}>
-                    <img src={testimg}></img>
-                </div>
-                <div id={storestyle.info_container}>
-                    <div id={storestyle.info_wrapper}>
-                        <span>아메리카노</span>
-                        <p>사이즈: 기본</p>
-                        <p>포장 방법: 개인컵</p>
-                        <p>수량: 2 개</p>
-                        <p>결제금액: 4,000 원</p>
-                        <div id={storestyle.tempture_ice}>
-                            <span>아이스</span>
-                        </div>
-                    </div>
-                </div>
+                <Menu 
+                totalPrice={order.totalprice}
+                data={order.menus[currIndex]}
+                />
                 <div id={storestyle.buttons}>
-                <div id={storestyle.button}>
-                        <span>확인</span>
-                    </div>
-                    <div 
-                    id={storestyle.button}
-                    onClick={refuseOrder}
+                    {
+                       isNotify 
+                       && <div 
+                        id={storestyle.button}
+                        onClick={acceptOrder}
+                        >
+                            <span>확인</span>
+                        </div>
+                    }
+                    {
+                        isNotify
+                        && <div 
+                        id={storestyle.button}
+                        onClick={refuseOrder}
+                        >
+                            <span>거절</span>
+                        </div>
+                    }
+                        <div 
+                        id={storestyle.button}
+                        onClick={onCloseDetail}
+                        >
+                            <span>닫기</span>
+                        </div>
+                </div>
+                {
+                    prev.current < 0
+                    ? <div style={{ display: "none" }}></div>
+                    :<div 
+                    className={storestyle.arrow_button_left}
+                    onClick={moveToPrev}
                     >
-                        <span>거절</span>
+                        <span>{"<"}</span>
                     </div>
-                    <div 
-                    id={storestyle.button}
-                    onClick={onCloseDetail}
+                }
+                {
+                    next.current >= order.menus.length
+                    ? <div style={{ display: "none" }}></div>
+                    :<div 
+                    className={storestyle.arrow_button_right}
+                    onClick={moveToNext}
                     >
-                        <span>닫기</span>
+                        <span>{">"}</span>
                     </div>
-                </div>
-                <div className={storestyle.arrow_button_left}>
-                    <span>{"<"}</span>
-                </div>
-                <div className={storestyle.arrow_button_right}>
-                    <span>{">"}</span>
-                </div>
+                }
             </div>
         </div>
     )

@@ -6,11 +6,11 @@ import { Socket } from "socket.io-client";
 import { useEffect, useRef, useState } from "react";
 import { SocketMethods } from "../socket/methods";
 import { Order } from "../type/order.type";
-import OrderListItem from "./store/order_list_item";
 import StoreNotifyList from "./store/notify_list";
 import { StoreCallbackMethods } from "./store/methods";
 import sound from "../sounds/dingdong.mp3"
 import StoreOrderDetail from "./store/store_order_detail";
+import OrderList from "./store/order_list";
 
 export default function StoreBody({ 
     onChangeView,
@@ -28,15 +28,46 @@ export default function StoreBody({
     const [orderNotifies, setOrderNotifies] =  useState<Order[]>([])
     const [orders, setOrders] = useState<Order[]>([])
     const [currOrder, setCurrOrder] = useState<Order | undefined>(undefined)
+    const [isNotify, setIsNotify] = useState<boolean>(false)
+
     const bell = useRef<HTMLAudioElement>(null)
 
-    const logout = () => {
-        disconnect()
-        onChangeView("login")
-    }
     const refuseOrder = (notifies: Order[]) => setOrderNotifies(notifies)
-    const showDetail = (order: Order) => setCurrOrder(order)
+    const acceptOrder = (notifies: Order[], order: Order) => {
+        setOrderNotifies(notifies)
+        setOrders([...orders, order])
+        closeDetail()
+    }
+    const showDetail = (order: Order, isNotify: boolean) => {
+        setCurrOrder(order)
+        setIsNotify(isNotify)
+    }
     const closeDetail = () => setCurrOrder(undefined)
+    const onAcceptOrder = (acceptKey: string) => {
+        const socket = getSocket()
+        if(!socket) {
+            alert("서버와 연결되어있지 않습니다.")
+            return
+        }
+
+        let order
+        const notifies = orderNotifies.filter(o => {
+            if(o.uuid === acceptKey) {
+                order = o
+                return false
+            }
+            return true
+        })
+
+        try {
+            SocketMethods
+            .Event
+            .emitEvent(socket, {
+                key: "accept-order",
+                callback: acceptOrder,
+            }, acceptKey, order, notifies)
+        } catch(e) { alert(`${e}`) }
+    }
     const onRefuseOrder = (removeKey: string) => {
         const socket = getSocket()
         if(!socket) {
@@ -109,8 +140,10 @@ export default function StoreBody({
             </audio>
             {
                 currOrder !== undefined
-                ? <StoreOrderDetail 
+                ? <StoreOrderDetail
+                isNotify={isNotify} 
                 order={currOrder}
+                onAcceptOrder={onAcceptOrder}
                 onRefuseOrder={onRefuseOrder}
                 onCloseDetail={closeDetail}
                 />
@@ -124,9 +157,10 @@ export default function StoreBody({
             <div className={storestyle.order_container}>
                 <div className={storestyle.order_wrapper}>
                     <h1>주문 목록</h1>
-                    { orders.map((o, i) => ( <OrderListItem key={i}/> )) }
-                    <ul key="order">
-                    </ul>
+                    <OrderList
+                    onOpenDetail={showDetail}
+                    orders={orders}
+                    />
                 </div>
                 <div className={storestyle.order_wrapper}>
                     <h1>주문 알림</h1>

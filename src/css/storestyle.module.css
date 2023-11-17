@@ -256,7 +256,7 @@
 
 .order_detail_container #img_wrapper {
     width: inherit;
-    height: 120px;
+    height: 110px;
     display: flex;
     justify-content: center;
 }
@@ -267,14 +267,22 @@
     align-self: center;
 }
 
-.order_detail_container #info_container {
+.order_detail_container .menu_container {
+    width: inherit;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.order_detail_container .menu_container #info_container {
     width: inherit;
     height: 170px;
     display: flex;
     justify-content: center;
 }
 
-.order_detail_container #info_wrapper {
+.order_detail_container .menu_container #info_wrapper {
     height: 170px;
     width: inherit;
     display: inline-flex;
@@ -282,14 +290,14 @@
     justify-content: space-between;
 }
 
-.order_detail_container #info_wrapper span {
+.order_detail_container .menu_container #info_wrapper span {
     font-size: 14px;
     font-weight: bold;
     color: black;
     text-align: center;
 }
 
-.order_detail_container #info_wrapper p {
+.order_detail_container .menu_container #info_wrapper p {
     font-size: 12px;
     font-weight: 400;
     color: black;
@@ -298,7 +306,25 @@
     text-align: left;
 }
 
-.order_detail_container #info_wrapper #tempture_ice {
+.order_detail_container .menu_container #info_wrapper #tempture_hot {
+    width: 80px;
+    height: 30px;
+    background-color: #ffdad6;
+    border-radius: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+}
+
+.order_detail_container .menu_container #info_wrapper #tempture_hot span {
+    font-size: 12px;
+    font-weight: bold;
+    color: #410002;
+}
+
+.order_detail_container .menu_container #info_wrapper #tempture_ice {
     width: 80px;
     height: 30px;
     background-color: #D8E2FF;
@@ -310,14 +336,15 @@
     justify-content: center;
 }
 
-.order_detail_container #info_wrapper #tempture_ice span {
-    font-size: 11px;
-    font-weight: 400;
+.order_detail_container .menu_container #info_wrapper #tempture_ice span {
+    font-size: 12px;
+    font-weight: bold;
     color: #001A42;
 }
 
 .order_detail_container #buttons {
     width: inherit;
+    height: 60px;
     display: inline-flex;
     align-items: center;
     justify-content: space-evenly;

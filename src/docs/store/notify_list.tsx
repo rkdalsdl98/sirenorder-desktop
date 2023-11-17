@@ -6,7 +6,7 @@ export default function StoreNotifyList({
     onOpenDetail,
 } : {
     notifies: Order[],
-    onOpenDetail(order: Order): void,
+    onOpenDetail(order: Order, isNotify: boolean): void,
 }) {
     return (
         <ul key="notify">
