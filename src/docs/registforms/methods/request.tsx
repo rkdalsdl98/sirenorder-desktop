@@ -47,6 +47,10 @@ export namespace RegistRequest {
                     resolve(data)
                 } else reject(new RequestException("UnknownException", "알 수 없는 오류가 발생했습니다."))
             })
+            .catch(err => {
+                console.log(err)
+                reject(new RequestException("UnknownException",  "알 수 없는 오류가 발생했습니다."))
+            })
         })
     }
 }

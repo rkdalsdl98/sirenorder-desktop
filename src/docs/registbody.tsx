@@ -15,7 +15,10 @@ export default function RegistBody({
     const [form, setForm] = useState<PageType>("pass")
     const requestbody = useRef<RegistRequestBody>({})
 
-    const addPass = (data: string) => requestbody.current.pass = data
+    const addPassAndIMP = (data: { imp_uid: string, pass: string }) => {
+        requestbody.current.pass = data.pass
+        requestbody.current.imp_uid = data.imp_uid
+    }
     const addStoreInfo = (data: Omit<StoreInfo, "detail">) => requestbody.current.storeinfo = { 
         ...data,
         detail: requestbody.current.storeinfo?.detail
@@ -29,7 +32,7 @@ export default function RegistBody({
             <PassForm
             setChangeForm={setForm}
             setChangeView={onChangeView}
-            addPass={addPass}/>
+            addPassAndIMP={addPassAndIMP}/>
         )
         case "storeinfo":
         return (

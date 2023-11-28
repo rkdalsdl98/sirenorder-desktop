@@ -55,7 +55,6 @@ export default function DetailInfoForm({
             waytocome,
             description,
         }
-
         const validation = RegistValidation.checkDetailInfo({ ...detail })
         if(typeof validation === "boolean") {
             addStoreDetail(detail)

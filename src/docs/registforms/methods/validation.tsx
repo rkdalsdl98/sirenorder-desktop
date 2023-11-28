@@ -87,9 +87,9 @@ export namespace RegistValidation {
         // 검증별 메시지를 나누기 위함
         if(!checkHours([detail.openhours, detail.sirenorderhours]))
             return { result: false, type: "hours" }
-        if(!isPhonenumber(detail.phonenumber))
+        else if(!isPhonenumber(detail.phonenumber))
             return { result: false, type: "phonenumber" }
-        if(detail.description
+        else if(detail.description
         && detail.description.length > 100) {
             return { result: false, type: "description" }
         }

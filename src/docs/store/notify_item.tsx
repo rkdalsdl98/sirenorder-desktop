@@ -13,7 +13,7 @@ export default function StoreNotifyItem({
     const openDetail = () => onOpenDetail(order, true)
 
     useEffect(() => {
-        let count : number = 0
+        let count : number = 1
         order.menus.forEach(m => count += m.count)
         setTotalMenu(count)
     })

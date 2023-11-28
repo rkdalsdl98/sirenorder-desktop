@@ -54,7 +54,7 @@ const EVENTS: Record<string, (socket: IO.Socket, callback: EventCallback, ...arg
             removeOrder as Order,
             (res: SocketResponse<any>) => {
                 if(!res.result) {
-                    if("message" in res.data) {
+                    if(res.data && "message" in res.data) {
                         const err = res.data as FailedResponse
                         let message = `오류코드 ${err.status}\n`
                         if(err.substatus) message += err.substatus

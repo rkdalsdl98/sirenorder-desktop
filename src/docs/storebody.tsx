@@ -129,7 +129,9 @@ export default function StoreBody({
                 {
                     key: "listen-order",
                     callback: (res: SocketResponse<Order>) => 
-                        StoreCallbackMethods.Listeners.order(res, onUpdateOrderNotifies),
+                        StoreCallbackMethods
+                        .Listeners
+                        .order(res, onUpdateOrderNotifies),
                 }
             ])
         }

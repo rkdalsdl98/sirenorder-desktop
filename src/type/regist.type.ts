@@ -1,5 +1,6 @@
 export type RegistRequestBody = {
     pass?: string
+    imp_uid?: string
     storeinfo?: StoreInfo
 }
 

@@ -1,5 +1,6 @@
 export interface Order {
     readonly uuid: string
+    readonly imp_uid: string
     readonly saleprice: number
     readonly totalprice: number
     readonly store_uid: string
