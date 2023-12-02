@@ -32,6 +32,32 @@ export default function StoreBody({
 
     const bell = useRef<HTMLAudioElement>(null)
 
+    const onFinishedOrder = (findId: string) => {
+        const socket = getSocket()
+        if(!socket) {
+            alert("서버와 연결되어있지 않습니다.")
+            return
+        }
+
+        const order = orders.find(o => o.uuid === findId)
+        if(order === undefined) {
+            alert("존재하지 않는 주문입니다.")
+            return;
+        }
+        try {
+            SocketMethods
+            .Event
+            .emitEvent(socket, {
+                key: "finish-order",
+                callback: finishOrder,
+            }, order)
+        } catch(e) { alert(`${e}`) }
+    }
+    const finishOrder = (order: Order) => {
+        order.orderState = "finish"
+        const after = orders.filter(o => o.uuid !== order.uuid)
+        setOrders([...after, order])
+    }
     const refuseOrder = (notifies: Order[]) => setOrderNotifies(notifies)
     const acceptOrder = (notifies: Order[], order: Order) => {
         setOrderNotifies(notifies)
@@ -101,6 +127,7 @@ export default function StoreBody({
                 bell.current.play()
             } else bell.current.play()
         }
+        order.orderState = "cooking"
         setOrderNotifies([...orderNotifies, order])
     }
     const reConnect = () => {
@@ -161,6 +188,7 @@ export default function StoreBody({
                     <h1>주문 목록</h1>
                     <OrderList
                     onOpenDetail={showDetail}
+                    onFinishedOrder={onFinishedOrder}
                     orders={orders}
                     />
                 </div>

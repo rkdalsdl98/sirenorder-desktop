@@ -88,6 +88,29 @@ const EVENTS: Record<string, (socket: IO.Socket, callback: EventCallback, ...arg
             }
         )
     },
+    "finish-order": (socket: IO.Socket, callback: EventCallback, ...args: any[]) => {
+        if(args.length < 1) {
+            alert("주문취소 정보를 읽어오는데 실패 했습니다.")
+            return
+        }
+        const [order] = args[0]
+        socket.emit(
+            "finish-order",
+            order['uuid'] as string,
+            (res: SocketResponse<any>) => {
+                if(!res.result) {
+                    if("message" in res.data) {
+                        const err = res.data as FailedResponse
+                        let message = `오류코드 ${err.status}\n`
+                        if(err.substatus) message += err.substatus
+                        throw message + err.message
+                    }
+                    throw "알 수 없는 오류가 발생했습니다."
+                }
+                callback(order)
+            }
+        )
+    }
 }
 
 type ListenerKeys = keyof typeof LISTENERS

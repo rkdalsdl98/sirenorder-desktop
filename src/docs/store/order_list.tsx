@@ -4,9 +4,11 @@ import OrderItem from "./order_item"
 export default function OrderList({
     orders,
     onOpenDetail,
+    onFinishedOrder,
 }: {
     orders: Order[],
     onOpenDetail(order: Order, isNotify: boolean): void,
+    onFinishedOrder(findId: string): void,
 }) {
     return (
         <ul key="order">
@@ -16,6 +18,7 @@ export default function OrderList({
                          <OrderItem 
                          order={o}
                          onOpenDetail={onOpenDetail}
+                         onFinishedOrder={onFinishedOrder}
                          /> 
                     </div>
                 ))

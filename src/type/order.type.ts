@@ -6,6 +6,7 @@ export interface Order {
     readonly store_uid: string
     readonly deliveryinfo: DeliveryInfo
     readonly menus: MenuInfo[]
+    orderState?: OrderState
 }
 export type DeliveryInfo = {
     readonly memo: string
@@ -30,3 +31,4 @@ export type MenuInfo = {
 export type MenuSize = "default" | "mega"
 export type MenuBottle = "persornal" | "disposable" | "plastic"
 export type MenuTempture = "ice" | "hot"
+export type OrderState = "cooking" | "finish"
