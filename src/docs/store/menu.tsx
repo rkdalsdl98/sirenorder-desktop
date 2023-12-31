@@ -1,39 +1,34 @@
 import storestyle from "../../css/storestyle.module.css"
-import { MenuInfo } from "../../type/order.type"
+import { DeliveryInfo, MenuInfo } from "../../type/order.type"
 import { useEffect, useState } from "react"
 
 export default function Menu({
     data,
+    deliveryInfo,
     totalPrice,
 }: {
-    data: MenuInfo
+    data: MenuInfo,
+    deliveryInfo: DeliveryInfo,
     totalPrice: number,
 }) {
     const [size, setSize] = useState<string>("기본")
-    const [bottle, setBottle] = useState<string>("개인컵")
+    const [packagingMethod, setPackagingMethod] = useState<string>("개인컵")
     
     const changeSize = () => {
-        switch(data.size) {
+        switch(deliveryInfo.size) {
             case "default":
                 setSize("기본")
                 break
-            case "mega":
-                setSize("메가")
+            case "Short":
+            case "Tall":
+            case "Grande":
+            case "Venti":
+                setSize(deliveryInfo.size)
                 break
         }
     }
-    const changeBottle = () => {
-        switch(data.bottle) {
-            case "disposable":
-                setBottle("일회용컵")
-                break
-            case "plastic":
-                setBottle("플라스틱컵")
-                break
-            case "persornal":
-                setBottle("개인컵")
-                break
-        }
+    const changePackagingMethod = () => {
+        setPackagingMethod(deliveryInfo.packagingMethod)
     }
     const addComma = (num: number) => {
         return num.toLocaleString("ko-KR")
@@ -41,7 +36,8 @@ export default function Menu({
 
     useEffect(() => {
         changeSize()
-        changeBottle()
+        changePackagingMethod()
+        console.log(deliveryInfo)
     })
     return (
         <div className={storestyle.menu_container}>
@@ -52,12 +48,12 @@ export default function Menu({
                 <div id={storestyle.info_wrapper}>
                     <span>{`${data.name}`}</span>
                     <p>사이즈: {`${size}`}</p>
-                    <p>포장 방법: {`${bottle}`}</p>
+                    <p>포장 방법: {`${packagingMethod}`}</p>
+                    <p>픽업 방법: {`${deliveryInfo.take ? "포장" : "매장취식"}`}</p>
                     <p>수량: {`${data.count}`} 개</p>
-                    <p>개별 가격: {`${addComma(data.price)}`} 원</p>
                     <span>총 결제금액: {`${addComma(totalPrice)}`} 원</span>
                     {
-                        data.tempture === "ice"
+                        deliveryInfo.tempture === "COLD"
                         ?<div id={storestyle.tempture_ice}>
                             <span>ICE</span>
                         </div>

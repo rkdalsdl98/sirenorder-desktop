@@ -68,6 +68,7 @@ export default function StoreInfoForm({
             setChangeForm("detailinfo")
         } else alertMessage(validation.type)
     }
+
     return (
         <div className={bodystyle.largebody}>
             <span>가게정보</span>

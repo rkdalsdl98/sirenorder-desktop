@@ -16,7 +16,7 @@ export default function OrderItem({
         <li id={storestyle.orderlist_item_container}>
             <div id={storestyle.type_wrapper}>
                 <span id={storestyle.type}>{
-                    order.deliveryinfo.take
+                    order.deliveryinfo[0].take
                     ? "포장 주문"
                     : "매장 취식"
                 }</span>

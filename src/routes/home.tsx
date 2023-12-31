@@ -39,7 +39,9 @@ export default function Home() {
         (res: SocketResponse<SuccessResponse<Wallet> | FailedResponse>) => {
             if(!("result" in res) || !res.result) {
                 alert(res.message)
-                SocketMethods.Connection.disconnect(con)
+                SocketMethods
+                .Connection
+                .disconnect(con)
             } else {
                 localStorage.setItem("login-data", JSON.stringify({
                     merchantId: data.merchantId,

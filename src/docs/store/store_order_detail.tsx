@@ -1,6 +1,6 @@
 import storestyle from "../../css/storestyle.module.css"
 import { Order } from "../../type/order.type"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Menu from "./menu"
 
 export default function StoreOrderDetail({
@@ -37,6 +37,7 @@ export default function StoreOrderDetail({
                 <Menu 
                 totalPrice={order.totalprice}
                 data={order.menus[currIndex]}
+                deliveryInfo={order.deliveryinfo[currIndex]}
                 />
                 <div id={storestyle.buttons}>
                     {
