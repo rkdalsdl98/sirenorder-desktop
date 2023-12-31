@@ -5,8 +5,8 @@ import * as isDev from 'electron-is-dev';
 const BASE_URL = 'http://localhost:3000';
 
 let mainWindow: BrowserWindow | null;
-const windowWidth : number = 1024
-const windowHeight : number = 768
+const windowWidth : number = 1280
+const windowHeight : number = 960
 
 function createMainWindow(): void {
   mainWindow = new BrowserWindow({

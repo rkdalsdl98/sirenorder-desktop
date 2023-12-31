@@ -5,8 +5,8 @@ var electron_1 = require("electron");
 var isDev = require("electron-is-dev");
 var BASE_URL = 'http://localhost:3000';
 var mainWindow;
-var windowWidth = 1024;
-var windowHeight = 768;
+var windowWidth = 1280;
+var windowHeight = 960;
 function createMainWindow() {
     mainWindow = new electron_1.BrowserWindow({
         width: windowWidth,

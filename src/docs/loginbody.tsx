@@ -1,14 +1,29 @@
 import { useState } from 'react';
 import bodystyle from "../css/bodystyle.module.css"
 import { ViewBody } from '../type/home.type';
+import { SocketLoginBody } from '../socket/socket.type';
 
-export default function LoginBody({ onChangeView } : { onChangeView(view: ViewBody): void }) {
+export default function LoginBody({ 
+    onChangeView,
+    connect,
+} : { 
+    onChangeView(view: ViewBody): void,
+    connect(data: SocketLoginBody): void,
+}) {
     const [loginCode, setLoginCode] = useState<string>("")
     const [pass, setPass] = useState<string>("")
 
     const onChangeCodeInput = (event: any) => setLoginCode(event.target.value)
     const onChangePassInput = (event: any) => setPass(event.target.value)
     const setChangeView = () => onChangeView("regist")
+
+    const login = () => {
+        connect({
+            merchantId: loginCode,
+            pass,
+        })
+    }
+
     return (
     <div className={bodystyle.loginbody}>
         <span>로그인</span>
@@ -21,7 +36,7 @@ export default function LoginBody({ onChangeView } : { onChangeView(view: ViewBo
             />
             <input
             onChange={onChangePassInput}
-            type='text'
+            type='password'
             value={pass}
             placeholder='비밀번호를 입력해주세요.'
             />
@@ -34,6 +49,7 @@ export default function LoginBody({ onChangeView } : { onChangeView(view: ViewBo
         </p>
         <div
         className={bodystyle.actionbutton}
+        onClick={login}
         ><p>로그인</p></div>
     </div>
     )

@@ -1,11 +1,12 @@
 export type RegistRequestBody = {
     pass?: string
+    imp_uid?: string
     storeinfo?: StoreInfo
 }
 
 export type StoreInfo = {
     storename?: string
-    storeaddress?: string
+    address?: string
     thumbnail?: string
     detail?: StoreDetailInfo
 }
@@ -15,14 +16,9 @@ export type Hours = {
     close?: string
 }
 
-export type SirenOrderHours = {
-    sirenorder?: Hours
-    dt?: Hours
-}
-
 export type StoreDetailInfo = {
-    openhour?: Hours
-    sirenorderhours?: SirenOrderHours
+    openhours?: Hours
+    sirenorderhours?: Hours
     phonenumber?: string
     parkinginfo?: string
     waytocome?: string
@@ -30,4 +26,10 @@ export type StoreDetailInfo = {
     description?: string
 }
 
-export type PageType = "pass" | "storeinfo" | "detailinfo" | "last"
+export type PageType = "pass" | "storeinfo" | "detailinfo" | "subimage" | "last"
+export type PlaceHolerSize = "small" | "middle" | "large"
+export type UUIDS = {
+    merchant?: string, 
+    store?: string, 
+    wallet?: string,
+}

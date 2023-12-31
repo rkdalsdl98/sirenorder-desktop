@@ -2,7 +2,7 @@
 
 .loginbody {
     width: 400px;
-    height: 300px;
+    height: 280px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -21,9 +21,10 @@
 /* 공용 */
 .inputform {
     width: inherit;
-    height: 120px;
+    height: inherit;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .inputform input {
@@ -36,6 +37,42 @@
     color: #44474F;
     margin-top: 20px;
     padding-left: 10px;
+}
+
+.inputform div {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputform div img {
+    padding-top: 10px;
+    width: 320px;
+    height: 160px;
+}
+
+.inputform div h5 {
+    font-size: 14px;
+    font-weight: 400;
+    color: #001849;
+}
+
+.inputform div p {
+    font-size: 8px;
+    font-weight: 300;
+    color: #001849;
+}
+
+.inputImage {
+    background: url("./images/imgicon.png") no-repeat left;
+    background-size: 12px;
+    background-position: 10px;
+    cursor: pointer;
+}
+
+.inputform input:focus {
+    outline: none;
 }
 
 .highlightcomment {
@@ -78,13 +115,82 @@
     justify-content: space-between;
 }
 
+.hours {
+    width: 400px;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 20px;
+}
+
+.hours input {
+    width: 120px;
+    height: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    background-color: #E1E2EC;
+    border: none;
+    color: #44474F;
+}
+
+.hours h5 {
+    font-size: 12px;
+    color: #001849;
+}
+
+.hours .openhours div {
+    width: 160px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hours .closehours div {
+    width: 160px;
+    height: 40px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hours .openhours #placeholder_large_size input::-webkit-input-placeholder {
+    font-size: 10px;
+}
+
+.hours .closehours #placeholder_large_size input::-webkit-input-placeholder {
+    font-size: 10px;
+}
+
+.hours .openhours #placeholder_middle_size input::-webkit-input-placeholder {
+    font-size: 8px;
+}
+
+.hours .closehours #placeholder_middle_size input::-webkit-input-placeholder {
+    font-size: 8px;
+}
+
+.hours .openhours #placeholder_small_size input::-webkit-input-placeholder {
+    font-size: 7px;
+}
+
+.hours .closehours #placeholder_small_size input::-webkit-input-placeholder {
+    font-size: 7px;
+}
+
 /* 공용 */
 
 /* 회원가입 */
 
 .smallbody {
     width: 400px;
-    height: 200px;
+    height: 250px;
     display: flex;
     flex-direction: column;
 }
@@ -97,3 +203,192 @@
 }
 
 /* 회원가입 */
+
+/* 가게정보 */
+
+.largebody {
+    width: 400px;
+    height: 540px;
+    display: flex;
+    flex-direction: column;
+}
+
+.largebody span {
+    font-size: 24px;
+    font-weight: 400;
+    color: #001849;
+    align-self: start;
+}
+
+/* 가게정보 */
+
+/* 가게상세정보 */
+
+.middlebody {
+    width: 400px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.middlebody span {
+    font-size: 24px;
+    font-weight: 400;
+    color: #001849;
+    align-self: start;
+}
+
+.middlebody #comment {
+    font-size: 8px;
+    font-weight: 600;
+    color: #001849;
+    align-self: center;
+}
+
+.largebody #comment {
+    font-size: 8px;
+    font-weight: 600;
+    color: #001849;
+    align-self: center;
+}
+
+/* 가게상세정보 */
+
+/* 추가 이미지 */
+
+.subimages_container {
+    width: inherit;
+    position: absolute;
+    height: 300px;
+    border: 1px solid #75777F;
+    border-radius: 15px;
+    transform: translate(0%, 120px);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    list-style: none;
+    overflow: hidden;
+    overflow-y: scroll;
+    padding: 0px;
+}
+
+.subimages_container {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.subimages_container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+
+.subimage_wrapper {
+    width: 120px;
+    height: 140px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 8px;
+    padding-top: 8px;
+}
+
+.subimage_wrapper .prev_image {
+    width: inherit;
+    height: 120px;
+}
+
+.subimage_wrapper .delete_icon {
+    cursor: pointer;
+}
+
+/* 추가 이미지 */
+
+/* 결과 */
+
+.result_container {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create_result_container {
+    width: 400px;
+    height: 570px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.comment_container {
+    width: inherit;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+}
+
+.comment_container p {
+    text-align: center;
+    font-weight: 600;
+    font-size: 18px;
+    color: #001849;
+}
+
+.comment_container pre {
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
+    color: #001849;
+}
+
+.logincode_container {
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100px;
+}
+
+.logincode_container #header {
+    font-size: 14px;
+    font-weight: 600;
+    color: #001849;
+}
+
+.logincode_container .wrapper {
+    width: inherit;
+    height: 50px;
+    font-size: 14px;
+    font-weight: 400;
+    background-color: #E1E2EC;
+    color: #44474F;
+}
+
+.logincode_container .wrapper #inputImage {
+    background: url("./images/copy_icon.png") no-repeat left;
+    background-size: 16px 18.53px;
+    background-position-x: 370px;
+    cursor: pointer;
+}
+
+.logincode_container input {
+    width: inherit;
+    height: inherit;
+    padding-left: 10px;
+    border: none;
+}
+
+.logincode_container input:focus {
+    outline: none;
+}
+
+.logincode_container p {
+    text-align: left;
+    font-size: 10px;
+    font-weight: 400;
+    color: #001849;
+}
+
+/* 결과 */
