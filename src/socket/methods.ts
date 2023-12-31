@@ -1,6 +1,6 @@
 import * as IO from "socket.io-client"
 import { Order } from "../type/order.type"
-import { SocketResponse } from "./socket.type"
+import { EventCallback, SocketResponse } from "./socket.type"
 import { FailedResponse } from "../type/request.type"
 
 const socket_url = process.env.REACT_APP_SOCKET_URL
@@ -115,4 +115,3 @@ const EVENTS: Record<string, (socket: IO.Socket, callback: EventCallback, ...arg
 
 type ListenerKeys = keyof typeof LISTENERS
 type EventKeys = keyof typeof EVENTS
-type EventCallback = (...args: any[]) => unknown

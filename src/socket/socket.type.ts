@@ -16,3 +16,4 @@ export type Sales = {
     readonly menuinfo: any
     readonly salesdate: string
 }
+export type EventCallback = (...args: any[]) => unknown
